@@ -31,23 +31,23 @@
     <section class="main">
         <div class="main-wrapper">
             <div class="first-row">
-                <div class="stone-button-wrapper">
-                    <div class="stone-button">
-                        <img src="./images/stone.svg" alt="stone icon">
+                <div class="rock-button-wrapper">
+                    <div onclick="chooseRock()" class="rock-button">
+                        <img src="./images/rock.svg" alt="rock icon">
                     </div>
                 </div>
                 <hr class="hor-line">
                 <div class="scissor-button-wrapper">
-                    <div class="scissor-button">
-                        <img src="./images/scissor.svg" alt="stone icon">
+                    <div onclick="chooseScissor()" class="scissor-button">
+                        <img src="./images/scissor.svg" alt="scissor icon">
                     </div>
                 </div>
             </div>
             <div class="second-row">
                 <hr class="dig-line1">
-                <div class="paper-button-button">
-                    <div class="paper-button">
-                        <img src="./images/paper.svg" alt="stone icon">
+                <div class="paper-button-wrapper">
+                    <div onclick="choosePaper()" class="paper-button">
+                        <img src="./images/paper.svg" alt="paper icon">
                     </div>
                 </div>
                 <hr class="dig-line2">
@@ -86,12 +86,6 @@
                 <td>If both players lay down the same hand, each player lays down another hand</td>
             </tr>
         </table>
-        <!-- <ul class="rules-list">
-            <li>Rock beats scissors, scissors beat paper, and paper beats rock.</li>
-            <li>Agree ahead of time whether you’ll count off “rock, paper, scissors, shoot” or just “rock, paper, scissors.”</li>
-            <li>Use rock, paper, scissors to settle minor decisions or simply play to pass the time</li>
-            <li>If both players lay down the same hand, each player lays down another hand</li>
-        </ul> -->
     </section>
     <script src="script.js"></script>
 </body>

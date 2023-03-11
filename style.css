@@ -67,7 +67,7 @@ body{
     justify-content: center;
     align-items: center;
 }
-.stone-button, .scissor-button, .paper-button{
+.rock-button, .scissor-button, .paper-button{
     width: 100px;
     height: 100px;
     background-color: white;
@@ -76,22 +76,22 @@ body{
     align-items: center;
     border-radius: 100px;
     cursor: pointer;
+    filter: drop-shadow(-1px 1px 11px rgba(0, 0, 0, 0.35));;
 }
-.stone-button-wrapper, .scissor-button-wrapper, .paper-button-wrapper{
-    margin: 30px 0px;
+.rock-button-wrapper, .scissor-button-wrapper, .paper-button-wrapper{
+    margin: 15px 0px;
 }
-.stone-button{
+.rock-button{
     border: solid 16px #0074B6;
 }
 .scissor-button{
     border: solid 16px #BD00FF;
 }
 .paper-button{
-    border: solid 16px #FFA943
-    ;
+    border: solid 16px #FFA943;
 }
 hr{
-    width: 120px;
+    width: 130px;
     height: 15px;
     border: none;
     background: rgba(0, 0, 0, 0.66);
