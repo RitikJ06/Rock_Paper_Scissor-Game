@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock Paper Scissors</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Score section -->
+    <section class="top-section">
+        <div class="score-section">
+            <div class="heading">
+                ROCK PAPER SCISSORS
+            </div>
+            <div class="scores">
+                <div class="computer-score">
+                    <p>COMPUTER<br>SCORE</p>
+                    <h1>0</h1>
+                </div>
+                <div class="player-score">
+                    <p>YOUR<br>SCORE</p>
+                    <h1>0</h1>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main section -->
+    <section class="main">
+        <div class="main-wrapper">
+            <div class="first-row">
+                <div class="stone-button-wrapper">
+                    <div class="stone-button">
+                        <img src="./images/stone.svg" alt="stone icon">
+                    </div>
+                </div>
+                <hr class="hor-line">
+                <div class="scissor-button-wrapper">
+                    <div class="scissor-button">
+                        <img src="./images/scissor.svg" alt="stone icon">
+                    </div>
+                </div>
+            </div>
+            <div class="second-row">
+                <hr class="dig-line1">
+                <div class="paper-button-button">
+                    <div class="paper-button">
+                        <img src="./images/paper.svg" alt="stone icon">
+                    </div>
+                </div>
+                <hr class="dig-line2">
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <section class="footer">
+        <button onclick="openRules()" class="footer-button">RULES</button>
+    </section>
+
+    <!-- Rules Popup -->
+    <section id="rules" class="rules">
+        <div onclick="closeRules()" class="rules-close">
+            <p>X</p>
+        </div>
+        <div class="rules-heading">
+            <h1>Game Rules</h1>
+        </div>
+        <table class="rules-table" cellpadding="8px">
+            <tr>
+                <td><div class="bullet"></div></td>
+                <td>Rock beats scissors, scissors beat paper, and paper beats rock.</td>
+            </tr>
+            <tr>
+                <td><div class="bullet"></div></td>
+                <td>Agree ahead of time whether you’ll count off “rock, paper, scissors, shoot” or just “rock, paper, scissors.”</td>
+            </tr>
+            <tr>
+                <td><div class="bullet"></div></td>
+                <td>Use rock, paper, scissors to settle minor decisions or simply play to pass the time</td>
+            </tr>
+            <tr>
+                <td><div class="bullet"></div></td>
+                <td>If both players lay down the same hand, each player lays down another hand</td>
+            </tr>
+        </table>
+        <!-- <ul class="rules-list">
+            <li>Rock beats scissors, scissors beat paper, and paper beats rock.</li>
+            <li>Agree ahead of time whether you’ll count off “rock, paper, scissors, shoot” or just “rock, paper, scissors.”</li>
+            <li>Use rock, paper, scissors to settle minor decisions or simply play to pass the time</li>
+            <li>If both players lay down the same hand, each player lays down another hand</li>
+        </ul> -->
+    </section>
+    <script src="script.js"></script>
+</body>
+</html>
