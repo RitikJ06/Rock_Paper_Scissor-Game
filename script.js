@@ -2,6 +2,10 @@
 // Paper = 1
 // Scissor = 2
 let playerChoice;
+let initialGamestate;
+let playerScore = 0;
+let pcScore = 0;
+
 
 // define function to open rules popup
 function closeRules() {
@@ -33,6 +37,38 @@ function chooseScissor() {
     handleGame();
 }
 
+// funtion to restart the game
+function restartGame(){
+    mainEle = document.getElementsByClassName("main")[0];
+    // remove all existing child
+    mainEle.innerHTML = "";
+    mainEle.append(initialGamestate);
+
+    // if the footer has more than one child
+    let footer = document.getElementsByClassName("footer")[0];
+    if( footer.children.length > 1){
+        // delete last child of footer
+        footer.removeChild(footer.lastChild);
+    }
+}
+
+// define functin to update score
+function updateScore(winner){
+    // get scores
+    playerScore = document.getElementById("player-score");
+    pcScore = document.getElementById("pc-score");
+
+    let newPlayerScore = (+playerScore.innerHTML) + 1;
+    let newPcScore = (+pcScore.innerHTML) + 1;
+
+    if(winner == "player"){
+        playerScore.innerHTML = newPlayerScore;
+    }
+    else if(winner == "computer"){
+        pcScore.innerHTML = newPcScore;
+    }
+}
+
 // define function to decide who is the winner
 function getWinner(plyrChoice, compChoice){
     if(plyrChoice == compChoice){
@@ -58,6 +94,7 @@ function styleMsgEle(wpr, heading, subheading, button){
     wpr.style.flexDirection = "column";
     wpr.style.justifyContent = "center";
     wpr.style.alignItems = "center";
+    wpr.style.margin = "0px 60px";
     // heading
     heading.style.fontSize = "38px";
     heading.style.fontWeight = "650";
@@ -78,15 +115,43 @@ function styleMsgEle(wpr, heading, subheading, button){
     button.style.fontSize = "13px";
     button.style.fontWeight = "300";
     button.style.letterSpacing = "0.09em";
+    button.style.cursor = "pointer";
 }
 
 // function to add style on winner i.e. mutiple green borders
 function styleWinner(winner){
+    winner.children[1].style.boxShadow = "0 0 0 25px rgba(29, 168, 43, 1), 0 0 0 45px rgba(29, 168, 43, 0.59), 0 0 0 65px rgba(46, 154, 37, 0.39)";
+}
+
+// reset button behaviours on changing game state
+function changeBtnBehave(btn){
+    btn.style.cursor = "auto";
 
 }
 
+// function to add next button if palyer has more score than pc
+function addNextBtn(){
+    let currentPlayerScore = +document.getElementById("player-score").innerHTML;
+    let currentPcScore = +document.getElementById("pc-score").innerHTML;
+
+    if(currentPcScore < currentPlayerScore){
+        // make an copy of Rules button
+        let nextBtn = document.getElementsByClassName("footer-button")[0].cloneNode(true);
+        nextBtn.innerHTML = "NEXT";
+        nextBtn.onclick = null;
+        // get footer
+        let footer = document.getElementsByClassName("footer")[0];
+        footer.append(nextBtn);
+    }
+}
+
+
 // function to make the game when user click on any of rock, paper, scissor
 function handleGame() {
+    // make an copy of initial state of game
+    initialGamestate = document.getElementsByClassName("main-wrapper")[0].cloneNode(true);
+
+    
     // generate a random number between [0,2] for computer choice
     // muliplying random by 10 and using modulo opeator for random choices
     computerChoice = Math.floor((Math.random() * 10) % 3);
@@ -148,12 +213,14 @@ function handleGame() {
     msgAboveBtns.style.letterSpacing = "0.09em";
     // add messages above the buttons
     msgAboveBtns.innerHTML = "YOU PICKED";
+    msgAboveBtns.style.position = "relative";
+    msgAboveBtns.style.zIndex = "1";
+    msgAboveBtns.style.bottom = "10px";
     playerBtnWpr.prepend(msgAboveBtns);
     msgAboveBtnsClone = msgAboveBtns.cloneNode(true);
     msgAboveBtnsClone.innerHTML = "PC PICKED"
     computerBtnWpr.prepend(msgAboveBtnsClone);
-
-
+    
 
     // create message element that is to be placed between elements
     msgEle = document.createElement("div");
@@ -165,6 +232,7 @@ function handleGame() {
     // create play again button
     playAgainBtn = document.createElement("button");
     playAgainBtn.innerHTML = "REPLAY";
+    playAgainBtn.onclick = restartGame;
 
     // call function to style message elements properly
     styleMsgEle(msgEle, msgHeading, msgSubHeading, playAgainBtn);
@@ -193,15 +261,19 @@ function handleGame() {
     }
     msgEle.append(playAgainBtn);
 
+    // change buttons behave
+    changeBtnBehave(playerBtnWpr.children[1]);
+    changeBtnBehave(computerBtnWpr.children[1]);
+
     // append all elements in fist row
     firstRow.append(playerBtnWpr);
     firstRow.append(msgEle);
     firstRow.append(computerBtnWpr.cloneNode(true));
 
 
+    // update the score
+    updateScore(winner);
 
-
-
-    
-
+    // Add next button in the footer if player wins
+    addNextBtn();
 }
