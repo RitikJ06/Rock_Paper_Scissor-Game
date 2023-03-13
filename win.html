@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock Paper Scissors</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <section class="top-section">
+        <div class="image-section">
+            <img src="images/trophy.svg">
+        </div>
+        <h1 class="hurray-heading">HURRAY!!</h1>
+        <h2 class="hurray-subheading">YOU WON THE GAME</h2>
+        <button onclick="resetScoreAndRestart()" class="play-again">PLAY AGAIN</button>
+    </section>
+    
+    <!-- Footer -->
+    <section class="footer">
+        <button onclick="openRules()" class="footer-button">RULES</button>
+    </section>
+    <!-- Rules Popup -->
+    <section id="rules" class="rules">
+        <div onclick="closeRules()" class="rules-close">
+            <p>X</p>
+        </div>
+        <div class="rules-heading">
+            <h1>Game Rules</h1>
+        </div>
+        <table class="rules-table" cellpadding="8px">
+            <tr>
+                <td><div class="bullet"></div></td>
+                <td>Rock beats scissors, scissors beat paper, and paper beats rock.</td>
+            </tr>
+            <tr>
+                <td><div class="bullet"></div></td>
+                <td>Agree ahead of time whether you’ll count off “rock, paper, scissors, shoot” or just “rock, paper, scissors.”</td>
+            </tr>
+            <tr>
+                <td><div class="bullet"></div></td>
+                <td>Use rock, paper, scissors to settle minor decisions or simply play to pass the time</td>
+            </tr>
+            <tr>
+                <td><div class="bullet"></div></td>
+                <td>If both players lay down the same hand, each player lays down another hand</td>
+            </tr>
+        </table>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>

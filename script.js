@@ -6,6 +6,13 @@ let initialGamestate;
 let playerScore = 0;
 let pcScore = 0;
 
+// if score is in local storage
+if(localStorage.playerScore){
+    document.getElementById("player-score").innerHTML = localStorage.playerScore;
+}
+if(localStorage.pcScore){
+    document.getElementById("pc-score").innerHTML = localStorage.pcScore;
+}
 
 // define function to open rules popup
 function closeRules() {
@@ -39,6 +46,9 @@ function chooseScissor() {
 
 // funtion to restart the game
 function restartGame(){
+    // close rules if they are open
+    closeRules();
+    
     mainEle = document.getElementsByClassName("main")[0];
     // remove all existing child
     mainEle.innerHTML = "";
@@ -58,15 +68,17 @@ function updateScore(winner){
     playerScore = document.getElementById("player-score");
     pcScore = document.getElementById("pc-score");
 
-    let newPlayerScore = (+playerScore.innerHTML) + 1;
-    let newPcScore = (+pcScore.innerHTML) + 1;
-
     if(winner == "player"){
+        let newPlayerScore = (+playerScore.innerHTML) + 1;
+        localStorage.setItem("playerScore", newPlayerScore);
         playerScore.innerHTML = newPlayerScore;
     }
     else if(winner == "computer"){
+        let newPcScore = (+pcScore.innerHTML) + 1;
+        localStorage.setItem("pcScore", newPcScore);
         pcScore.innerHTML = newPcScore;
     }
+    
 }
 
 // define function to decide who is the winner
@@ -81,20 +93,19 @@ function getWinner(plyrChoice, compChoice){
     else{
         return "computer";
     }
-    // else if((computerChoice == 0 && playerChoice == 2) || (computerChoice == 2 && playerChoice == 1) || (computerChoice == 1 && playerChoice == 0))
-    //     return "computer";
-    // }
     
 }
 
 // function to set style of message
-function styleMsgEle(wpr, heading, subheading, button){
+function styleMsgEle(wpr, heading, subheading){
     // wrapper
     wpr.style.display = "flex";
     wpr.style.flexDirection = "column";
-    wpr.style.justifyContent = "center";
+    wpr.style.justifyContent = "flex-end";
     wpr.style.alignItems = "center";
     wpr.style.margin = "0px 60px";
+    wpr.style.alignSelf = "flex-end";
+    wpr.style.marginBottom = "-30px";
     // heading
     heading.style.fontSize = "38px";
     heading.style.fontWeight = "650";
@@ -105,17 +116,6 @@ function styleMsgEle(wpr, heading, subheading, button){
     subheading.style.fontWeight = "650";
     subheading.style.margin = "0px";
     subheading.style.letterSpacing = "0.09em";
-    // play again button
-    button.style.backgroud = "white";
-    button.style.color = "#6B6B6B";
-    button.style.padding = "20px 40px";
-    button.style.margin = "20px 0px";
-    button.style.border = "none";
-    button.style.borderRadius = "9px";
-    button.style.fontSize = "13px";
-    button.style.fontWeight = "300";
-    button.style.letterSpacing = "0.09em";
-    button.style.cursor = "pointer";
 }
 
 // function to add style on winner i.e. mutiple green borders
@@ -126,7 +126,7 @@ function styleWinner(winner){
 // reset button behaviours on changing game state
 function changeBtnBehave(btn){
     btn.style.cursor = "auto";
-
+    btn.onclick = "";
 }
 
 // function to add next button if palyer has more score than pc
@@ -138,24 +138,32 @@ function addNextBtn(){
         // make an copy of Rules button
         let nextBtn = document.getElementsByClassName("footer-button")[0].cloneNode(true);
         nextBtn.innerHTML = "NEXT";
-        nextBtn.onclick = null;
+        nextBtn.onclick = () => window.location.replace("./win.html");
         // get footer
         let footer = document.getElementsByClassName("footer")[0];
         footer.append(nextBtn);
     }
 }
 
+// function to reset the score and restart the game
+function resetScoreAndRestart(){
+    // clear local storage
+    localStorage.clear();
+    // move back to the game
+    window.location.replace("./index.html");
+}
+
 
 // function to make the game when user click on any of rock, paper, scissor
 function handleGame() {
+
     // make an copy of initial state of game
     initialGamestate = document.getElementsByClassName("main-wrapper")[0].cloneNode(true);
 
-    
     // generate a random number between [0,2] for computer choice
     // muliplying random by 10 and using modulo opeator for random choices
     computerChoice = Math.floor((Math.random() * 10) % 3);
-    console.log(playerChoice, computerChoice)
+    
     // get all horizontal line elements
     horLine = document.getElementsByClassName("hor-line")[0];
     digLine1 = document.getElementsByClassName("dig-line1")[0];
@@ -233,9 +241,11 @@ function handleGame() {
     playAgainBtn = document.createElement("button");
     playAgainBtn.innerHTML = "REPLAY";
     playAgainBtn.onclick = restartGame;
+    playAgainBtn.style.margin = "20px 0px";
+    playAgainBtn.classList.add("play-again");
 
     // call function to style message elements properly
-    styleMsgEle(msgEle, msgHeading, msgSubHeading, playAgainBtn);
+    styleMsgEle(msgEle, msgHeading, msgSubHeading);
 
     // get the winner of the game
     const winner = getWinner(playerChoice, computerChoice);
@@ -261,6 +271,7 @@ function handleGame() {
     }
     msgEle.append(playAgainBtn);
 
+    console.log(computerBtnWpr);
     // change buttons behave
     changeBtnBehave(playerBtnWpr.children[1]);
     changeBtnBehave(computerBtnWpr.children[1]);
@@ -268,8 +279,7 @@ function handleGame() {
     // append all elements in fist row
     firstRow.append(playerBtnWpr);
     firstRow.append(msgEle);
-    firstRow.append(computerBtnWpr.cloneNode(true));
-
+    firstRow.append(computerBtnWpr);
 
     // update the score
     updateScore(winner);
