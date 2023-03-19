@@ -78,7 +78,7 @@ function updateScore(winner){
         localStorage.setItem("pcScore", newPcScore);
         pcScore.innerHTML = newPcScore;
     }
-    
+
 }
 
 // define function to decide who is the winner
@@ -131,18 +131,13 @@ function changeBtnBehave(btn){
 
 // function to add next button if palyer has more score than pc
 function addNextBtn(){
-    let currentPlayerScore = +document.getElementById("player-score").innerHTML;
-    let currentPcScore = +document.getElementById("pc-score").innerHTML;
-
-    if(currentPcScore < currentPlayerScore){
-        // make an copy of Rules button
-        let nextBtn = document.getElementsByClassName("footer-button")[0].cloneNode(true);
-        nextBtn.innerHTML = "NEXT";
-        nextBtn.onclick = () => window.location.replace("./win.html");
-        // get footer
-        let footer = document.getElementsByClassName("footer")[0];
-        footer.append(nextBtn);
-    }
+    // make an copy of Rules button
+    let nextBtn = document.getElementsByClassName("footer-button")[0].cloneNode(true);
+    nextBtn.innerHTML = "NEXT";
+    nextBtn.onclick = () => window.location.replace("./win.html");
+    // get footer
+    let footer = document.getElementsByClassName("footer")[0];
+    footer.append(nextBtn);
 }
 
 // function to reset the score and restart the game
@@ -156,7 +151,6 @@ function resetScoreAndRestart(){
 
 // function to make the game when user click on any of rock, paper, scissor
 function handleGame() {
-
     // make an copy of initial state of game
     initialGamestate = document.getElementsByClassName("main-wrapper")[0].cloneNode(true);
 
@@ -254,6 +248,8 @@ function handleGame() {
     if(winner == "player"){
         msgHeading.innerHTML = "YOU WIN";
         styleWinner(playerBtnWpr);
+        // Add next button in the footer
+        addNextBtn();
     }
     else if(winner == "computer"){
         msgHeading.innerHTML = "YOU LOST";
@@ -284,6 +280,4 @@ function handleGame() {
     // update the score
     updateScore(winner);
 
-    // Add next button in the footer if player wins
-    addNextBtn();
 }
